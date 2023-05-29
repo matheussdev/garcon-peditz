@@ -1,0 +1,1 @@
+export { EstoqueIngredientes } from "./EstoqueIngredientes";

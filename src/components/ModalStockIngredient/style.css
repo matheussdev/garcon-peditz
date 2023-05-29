@@ -1,0 +1,15 @@
+.custom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.custom-header .custom-header-title {
+  display: block;
+  position: relative;
+  left: 80px;
+}
+
+.custom-header button { 
+  position: inherit;
+}

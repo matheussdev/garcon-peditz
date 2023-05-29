@@ -1,0 +1,83 @@
+{
+  "name": "admin",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@chakra-ui/core": "^0.8.0",
+    "@chakra-ui/icons": "^1.1.1",
+    "@chakra-ui/react": "^1.7.3",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "@fontsource/montserrat": "^4.5.1",
+    "@fontsource/open-sans": "^4.5.2",
+    "@fontsource/raleway": "^4.5.0",
+    "@fontsource/roboto": "^4.5.1",
+    "@types/react-datepicker": "^4.11.2",
+    "axios": "^0.24.0",
+    "chart.js": "^3.6.0",
+    "faker": "^6.6.6",
+    "framer-motion": "^4",
+    "immer": "^10.0.1",
+    "moment": "^2.29.4",
+    "node-sass": "^7.0.0",
+    "qrcode": "^1.5.1",
+    "react": "^17.0.2",
+    "react-chartjs-2": "^4.0.0",
+    "react-currency-input-field": "^3.6.4",
+    "react-datepicker": "^4.11.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dom": "^17.0.2",
+    "react-easy-crop": "^4.0.1",
+    "react-icons": "^4.3.1",
+    "react-intl-currency-input": "^0.2.6",
+    "react-phone-number-input": "^3.1.44",
+    "react-qr-code": "^2.0.11",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^6.0.2",
+    "react-scripts": "4.0.3",
+    "react-select": "^5.3.2",
+    "react-tagsinput": "^3.19.0",
+    "sass": "^1.44.0",
+    "typescript": "^4.1.2",
+    "usehooks-ts": "^2.9.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/faker": "^6.6.9",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.3.2",
+    "@types/react-tagsinput": "^3.19.9",
+    "web-vitals": "^1.0.1"
+  },
+  "babel": {
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  }
+}

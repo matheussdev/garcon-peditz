@@ -1,0 +1,34 @@
+
+
+.column-div {
+    /* background-color: white;
+    width: 20%;
+    height: 100%;
+    min-width: 250px;
+    min-height: 400px;
+    max-height: 400px;
+      /* bg={"white"} */
+    /* border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column; */
+      /* boxShadow="md" */
+    /* gap: 4px;*/
+
+
+    overflow: auto;
+
+
+
+    /* box-shadow: 2px 2px 4px -1px rgb(115, 115, 115);
+    -webkit-box-shadow: 2px 2px 4px -1px rgb(115, 115, 115);
+    -moz-box-shadow: 2px 2px 4px -1px rgb(115, 115, 115);   */
+
+
+}
+
+::-webkit-scrollbar {
+    width: 0px; /* largura do scroll */
+    background-color: #f2f2f2; /* cor de fundo do scroll */
+}

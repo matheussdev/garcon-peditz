@@ -1,0 +1,21 @@
+.custom_voucher-start {
+  width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 15px;
+  position: relative;
+  top: 68px;
+  left: 15px;
+  z-index: 1;
+}
+
+.custom_voucher-end {
+  width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 15px;
+  position: relative;
+  top: 68px;
+  right: 15px;
+  z-index: 1;
+}

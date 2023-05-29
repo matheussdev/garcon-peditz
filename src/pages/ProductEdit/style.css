@@ -1,0 +1,74 @@
+.phoneInput,
+.react-tagsinput {
+  width: 100%;
+  min-width: 0px;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  position: relative;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  transition-property: var(--chakra-transition-property-common);
+  transition-duration: var(--chakra-transition-duration-normal);
+  font-size: var(--chakra-fontSizes-md);
+  -webkit-padding-start: var(--chakra-space-4);
+  padding-inline-start: var(--chakra-space-4);
+  -webkit-padding-end: var(--chakra-space-10);
+  padding-inline-end: var(--chakra-space-10);
+  height: var(--chakra-sizes-10);
+  border-radius: var(--chakra-radii-md);
+  border: 1px solid;
+  border-color: inherit;
+  background: inherit;
+}
+
+#react-select-1-listbox > div > div:hover,
+#react-select-2-listbox > div > div:hover,
+#react-select-3-listbox > div > div:hover,
+#react-select-4-listbox > div > div:hover,
+#react-select-5-listbox > div > div:hover,
+#react-select-6-listbox > div > div:hover,
+#react-select-7-listbox > div > div:hover,
+#react-select-8-listbox > div > div:hover,
+#react-select-9-listbox > div > div:hover,
+#react-select-10-listbox > div > div:hover{
+  filter: brightness(0.9);
+  background: #fff;
+  cursor: pointer;
+  color: #000;
+}
+.react-tagsinput {
+  margin-top: 1rem;
+}
+.react-tagsinput-input {
+  width: unset;
+}
+
+.react-tagsinput-tag {
+  background-color: #ededed;
+  color: black;
+  border: none;
+  border-radius: 10px;
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #47AA54;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ededed;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #47AA54;
+  border-radius: 20px;
+  border: 3px solid #ededed;
+}

@@ -1,0 +1,150 @@
+{
+  "pointOfSaleId": {
+    "id": "d783fec6-f250-4687-bc9b-e7dbe613e66f",
+    "name": "Principal"
+  },
+  "command": {
+    "comandaCode": "string",
+    "id": "string",
+    "table": "",
+    "phone":"",
+    "name": ""
+  },
+  "status": "pendente",
+  "delivery": false,
+  "obs": "",
+  "products": [
+    {
+      "id": "699ea494-914b-4af1-a4ed-ecf4f1c1a6ef",
+      "name": "Caponata de beringela",
+      "price": 0,
+      "amount": 1,
+      "category": {
+        "id": "3111a742-8577-41a8-8ab3-811771ee8c40",
+        "title": "Entradas"
+      },
+      "obs": "",
+      "complement": [
+        {
+          "id": "da5b20f5-9428-4952-854c-5b5bf7e16574",
+          "title": "Tamanho",
+          "formula": "Maior",
+          "type": "CheckBox",
+          "itens": [
+            {
+              "id": "2537a104-86ed-4b66-b171-1e17521379fc",
+              "title": "pequeno",
+              "price": 35.9,
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "172d6c2c-94e5-44fd-9826-3bb487f142fb",
+          "title": "Sabor",
+          "formula": "Maior",
+          "type": "CheckBox",
+          "itens": [
+            {
+              "id": "87abd162-29fb-4d65-b839-acee7b849a09",
+              "title": "Queijo",
+              "price": 0,
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "4110e72c-201e-4c51-8c25-9d304a477f95",
+          "title": "adicionais",
+          "formula": "Soma",
+          "type": "Increment",
+          "itens": [
+            {
+              "id": "8325a376-b607-44ad-a765-2bfe4e5a949b",
+              "title": "bacon",
+              "price": 1,
+              "amount": 2
+            },
+            {
+              "id": "3b7d2a22-8413-4370-af03-110cbe484a07",
+              "title": "cebola",
+              "price": 0.5,
+              "amount": 1
+            },
+            {
+              "id": "0afd2346-3e25-4938-ae29-8feeb6dc0a47",
+              "title": "cheddar",
+              "price": 2,
+              "amount": 2
+            },
+            {
+              "id": "a921f477-aa66-4eff-8117-2fad70f55407",
+              "title": "presunto",
+              "price": 0,
+              "amount": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+{
+  "pointOfSaleId": "d783fec6-f250-4687-bc9b-e7dbe613e66f",
+  "commandId": "string",
+  "delivery": false,
+  "obs": "",
+  "products": [
+    {
+      "productId": "699ea494-914b-4af1-a4ed-ecf4f1c1a6ef",
+      "amount": 1,
+      "obs": "",
+      "complements": [
+        {
+          "id": "da5b20f5-9428-4952-854c-5b5bf7e16574",
+          "itens": [
+            {
+              "id": "2537a104-86ed-4b66-b171-1e17521379fc",
+              "amount": 1,
+            },
+          ]
+        },
+        {
+          "id": "172d6c2c-94e5-44fd-9826-3bb487f142fb",
+          "itens": [
+            {
+              "id": "87abd162-29fb-4d65-b839-acee7b849a09",
+              "amount": 1,
+            },
+            {
+              "id": "949b2c0d-c219-456f-ad31-f8cbe8a22f56",
+              "amount": 1,
+            }
+          ]
+        },
+        {
+          "id": "4110e72c-201e-4c51-8c25-9d304a477f95",
+          "itens": [
+            {
+              "id": "8325a376-b607-44ad-a765-2bfe4e5a949b",
+              "amount": 2,
+            },
+            {
+              "id": "3b7d2a22-8413-4370-af03-110cbe484a07",
+              "amount": 1,
+            },
+            {
+              "id": "0afd2346-3e25-4938-ae29-8feeb6dc0a47",
+              "amount": 2,
+            },
+            {
+              "id": "a921f477-aa66-4eff-8117-2fad70f55407",
+              "amount": 1,
+            }
+          ]
+        }
+      ],
+    }
+  ]
+}
