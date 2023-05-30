@@ -15,23 +15,17 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 
 import { GrCart } from "react-icons/gr";
-import { RiPencilFill } from "react-icons/ri";
-import { AiTwotonePrinter, AiOutlinePercentage } from "react-icons/ai";
+import { AiOutlineSend } from "react-icons/ai";
 import { IoMdTrash } from "react-icons/io";
-import { MdAttachMoney } from "react-icons/md";
 import { BiArrowBack } from "react-icons/bi";
 
 import CartContext from "../../contexts/CartProducts";
 import { currency } from "../../utils/currency";
-import { IProductCart } from "../../pages/CreateNewOrder/CreateNewOrder";
 
 import { ConfirmModal } from "../ConfirmModal";
 import { DiscountOrTaxModal } from "../DiscountOrTaxModal";
+import api from "../../services/api";
 
-interface ICartOrderProps {
-  // cartProducts: IProductCart[];
-  // origin: string;
-}
 interface ItemsToSend {
   id: string;
   amount: number;
@@ -50,9 +44,50 @@ interface ProductToSend {
   complements: complementsToSend[];
 }
 
+function truncate(str: string, n: number) {
+  return str?.length > n ? str.substr(0, n - 1) + "..." : str;
+}
 interface Prop {
   cart: ProductToSend[];
-  updateCart: (cart: ProductToSend[])=>void
+  updateCart: (cart: ProductToSend[]) => void;
+}
+
+interface productOrders {
+  id: string;
+  amount: number;
+  note: string;
+  product: {
+    name: string;
+    price: string;
+    id: string;
+  };
+}
+interface ProductToLauch {
+  createdAt: string;
+  delivery: boolean;
+  id: string;
+  moneyChange: string;
+  note: string;
+  productOrders: productOrders[];
+  referenceCode: number;
+  totalValue: string;
+  updatedAt: string;
+}
+
+interface Command {
+  active: boolean;
+  id: string;
+  clientName: string;
+  commandCode: {
+    code: number;
+  };
+  totalValue: number;
+  orders: ProductToLauch[];
+  closedAt?: string;
+  createdAt?: string;
+  table: {
+    number: number;
+  };
 }
 export function CartOrder({ cart, updateCart }: Prop) {
   const navigate = useNavigate();
@@ -68,8 +103,15 @@ export function CartOrder({ cart, updateCart }: Prop) {
   const [newDicountOpen, setNewDiscountOpen] = useState(false);
   const [totalDiscount, setTotalDiscount] = useState(0);
   const [marked, setMarked] = useState<number[]>([]);
+  const [command, setCommand] = useState<Command>();
 
   useEffect(() => {
+    api
+      .get(`/api/commands/${comandaId}`)
+      .then((response) => {
+        setCommand(response.data);
+      })
+      .finally(() => {});
     function sumTotal() {
       const sum = cartProducts.reduce((prev, curr) => {
         return prev + curr.price * curr.qtd;
@@ -111,6 +153,29 @@ export function CartOrder({ cart, updateCart }: Prop) {
     setDeleteCartOpen("");
   }
 
+  function sendOrder() {
+    setLoad(true);
+    api
+      .post(`/api/orders`, {
+        pointOfSaleId: "d302fb50-a441-4a9e-b1a5-f71ee440438b",
+        commandId: comandaId,
+        delivery: false,
+        statusOrderId: "8a26c80d-4ade-4c6b-b708-238af330921d",
+        obs: "",
+        products: cart.map((product) => ({
+          productId: product.productId,
+          amount: product.amount,
+          note: product.obs,
+        })),
+      })
+      .then((response) => {
+        navigate(`/comandas/${comandaId}`);
+      })
+      .finally(() => {
+        setLoad(false);
+      });
+  }
+
   return (
     <Flex
       background={"white"}
@@ -131,7 +196,7 @@ export function CartOrder({ cart, updateCart }: Prop) {
         />
         <Icon as={GrCart} boxSize={5} color={"gray"} />
         <Heading size="md" color={"gray"}>
-          Mesa 1
+          Comanda {command?.commandCode.code}
         </Heading>
         {/* <IconButton
           icon={<RiPencilFill />}
@@ -158,7 +223,7 @@ export function CartOrder({ cart, updateCart }: Prop) {
                   value={product.productId}
                   isChecked={check}
                   checked={check}
-                  onChange={(e) => addToSelection(key)}
+                  onChange={() => addToSelection(key)}
                 />
                 <Text
                   background="gray"
@@ -175,6 +240,11 @@ export function CartOrder({ cart, updateCart }: Prop) {
                   {product.amount}
                 </Text>
                 <Text fontSize="14px">{product.name}</Text>
+                {product.obs && (
+                  <Text fontSize="12px" color="red">
+                    ({truncate(product.obs, 10)})
+                  </Text>
+                )}
               </Flex>
               <Text fontSize="14px">{currency(product.price)}</Text>
             </ListItem>
@@ -205,21 +275,22 @@ export function CartOrder({ cart, updateCart }: Prop) {
         </Flex>
       </Box>
       <Flex h="40px" gap={2} justifyContent="space-between">
-        <Tooltip label="Imprimir pedido">
+        <Tooltip label="Enviar pedido">
           <Button
             w="50%"
             h="40px"
             p="10px"
             color="white"
-            aria-label="Imprimir pedido"
+            aria-label="enviar pedido"
             fontSize="25px"
             background={"green.500"}
             display="flex"
             justifyContent="space-between"
+            onClick={() => sendOrder()}
           >
-            <AiTwotonePrinter width="20px" height="20px" />
+            <AiOutlineSend width="20px" height="20px" />
 
-            <Text fontSize={"16px"}>Imprimir Pedido</Text>
+            <Text fontSize={"16px"}>Enviar Pedido</Text>
           </Button>
         </Tooltip>
         <Tooltip label="Excluir pedido">

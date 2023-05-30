@@ -2,20 +2,7 @@ import { useState, useEffect, useContext, useRef, LegacyRef } from "react";
 import {
   Button,
   Flex,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Select,
   Box,
-  Heading,
-  Icon,
-  IconButton,
-  Tooltip,
-  List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,
   Image,
   Text,
   Drawer,
@@ -30,6 +17,7 @@ import {
   RadioGroup,
   Stack,
   SimpleGrid,
+  Textarea,
 } from "@chakra-ui/react";
 
 import CartContext from "../../contexts/CartProducts";
@@ -124,8 +112,8 @@ export function ProductsNewOrder({ onAddCart, cart }: Props) {
   // const [cartProducts, setCartProducts] = useState<IProductCart[]>([]);
   const { cartProducts, setCartProducts } = useContext(CartContext);
   const [name, setName] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState();
-
+  const [selectedProduct, setSelectedProduct] = useState<ProductToSend>();
+  const [obs, setObs] = useState("");
   useEffect(() => {
     api
       .get("/api/products/category")
@@ -152,61 +140,69 @@ export function ProductsNewOrder({ onAddCart, cart }: Props) {
   };
 
   async function openDrawer(prod: IProduct) {
-    api.get(`api/products/${prod.id}`).then((response) => {
-      const complements: IResponseProduct = response.data;
-      if (complements.complement.length > 0) {
-        onOpen();
-        setItemComplements(complements.complement);
-      } else {
-        console.log(prod);
-        const copy = [...cart];
-        const productIndex = copy.findIndex(
-          (item) => item.productId === prod.id,
-        );
-        if (productIndex > -1) {
-          copy[productIndex].amount = copy[productIndex].amount + 1;
-        } else {
-          copy.push({
-            productId: prod.id,
-            amount: 1,
-            complements: [],
-            name: prod.name,
-            price: prod.price,
-            obs: "",
-          });
-        }
-        onAddCart([...copy]);
-      }
+    onOpen();
+    setSelectedProduct({
+      productId: prod.id,
+      amount: 1,
+      complements: [],
+      name: prod.name,
+      price: prod.price,
+      obs: "",
     });
+    // api.get(`api/products/${prod.id}`).then((response) => {
+    //   const complements: IResponseProduct = response.data;
+    //   if (complements.complement.length > 0) {
+    //     onOpen();
+    //     setItemComplements(complements.complement);
+    //   } else {
+    //     console.log(prod);
+    //     const copy = [...cart];
+    //     const productIndex = copy.findIndex(
+    //       (item) => item.productId === prod.id,
+    //     );
+    //     if (productIndex > -1) {
+    //       copy[productIndex].amount = copy[productIndex].amount + 1;
+    //     } else {
+    //       copy.push({
+    //         productId: prod.id,
+    //         amount: 1,
+    //         complements: [],
+    //         name: prod.name,
+    //         price: prod.price,
+    //         obs: "",
+    //       });
+    //     }
+    //     onAddCart([...copy]);
+    //   }
+    // });
   }
 
-  const addToCart = (product: IProduct) => {
-    const newCart = [...cartProducts];
-    const newProd = {
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      qtd: 1,
-    };
-
-    if (!newCart[0]) {
-      newCart.push(newProd);
-    } else {
-      const sameId = newCart.find((prod) => {
-        return prod.id === product.id;
-      });
-      if (!sameId) {
-        newCart.push(newProd);
-      } else if (sameId) {
-        newCart.forEach((prod) => {
-          if (prod.id === product.id) {
-            prod.qtd += 1;
-          }
+  const addToCart = () => {
+    if (selectedProduct) {
+      const copy = [...cart];
+      const productIndex = copy.findIndex(
+        (item) =>
+          item.productId === selectedProduct.productId &&
+          item.obs === selectedProduct.obs
+      );
+      if (productIndex > -1) {
+        copy[productIndex].amount = copy[productIndex].amount + 1;
+      } else {
+        copy.push({
+          productId: selectedProduct.productId,
+          amount: selectedProduct.amount,
+          complements: [],
+          name: selectedProduct.name,
+          price: selectedProduct.price,
+          obs: obs,
         });
       }
+      onAddCart([...copy]);
+      setSelectedProduct(undefined);
+      setObs("");
+      onClose();
     }
     onClose();
-    setCartProducts(newCart);
   };
 
   return (
@@ -317,14 +313,6 @@ export function ProductsNewOrder({ onAddCart, cart }: Props) {
             })
           )}
         </SimpleGrid>
-        <Button
-          color="white"
-          fontWeight="bold"
-          borderRadius="7px"
-          background={"green.500"}
-        >
-          Salvar Novo Pedido
-        </Button>
       </Flex>
       <Drawer
         // key={prod.id}
@@ -336,8 +324,7 @@ export function ProductsNewOrder({ onAddCart, cart }: Props) {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>{name}</DrawerHeader>
-
+          <DrawerHeader>{selectedProduct?.name}</DrawerHeader>
           <DrawerBody>
             {itemComplements.map((comp) => {
               return (
@@ -381,16 +368,20 @@ export function ProductsNewOrder({ onAddCart, cart }: Props) {
                 </>
               );
             })}
+            <Textarea
+              placeholder="Observações"
+              mt="10px"
+              h="100px"
+              resize="none"
+              onChange={(e) => setObs(e.target.value)}
+            />
           </DrawerBody>
 
           <DrawerFooter>
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button
-              colorScheme="blue"
-              // onClick={() => addToCart(prod)}
-            >
+            <Button colorScheme="blue" onClick={() => addToCart()}>
               Adicionar ao pedido
             </Button>
           </DrawerFooter>
